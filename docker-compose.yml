@@ -165,9 +165,9 @@ services:
     image: volkszaehler/mbmd
     container_name: solaredge
     restart: on-failure
-    depends_on:
-      - influxdb
     command: run -c /etc/mbmd.yaml
+    ports:
+      - 7070:8080
     volumes:
       - ./mbmd/mbmd.yaml:/etc/mbmd.yaml:ro
 
@@ -192,11 +192,10 @@ services:
    # https://hub.docker.com/_/telegraf
   telegraf:
     container_name: telegraf
-    image: telegraf:1.11
+    image: telegraf:latest
     restart: always
-    ports:
-      - 5050:5050
     depends_on:
+      - solaredge
       - influxdb
       - broker
     volumes:

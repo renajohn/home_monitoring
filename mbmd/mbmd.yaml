@@ -1,7 +1,7 @@
 # REST api, use 127.0.0.1 to restrict to localhost
 api: 0.0.0.0:8080
 
-rate: 1m 
+rate: 1s
 
 # adapters are referenced by device
 adapters:
@@ -17,11 +17,4 @@ devices:
   type: SE
   id: 1
   subdevice: 1 # use subdevice to access SunSpec subdevices
-
-influx:
-  measurement: mbmd
-  database: pacmon-bucket
-  organization: pacmon
-  token: 2dMzbDP3PQiVaY0MQ8RYWaPCTPyzZZEsN0E-RxBhp5ppM2SUyih8NSw8CX3JEjCqZURlBH_agJLZKjOKL0oskg==
-  url: http://influxdb:8086
 
