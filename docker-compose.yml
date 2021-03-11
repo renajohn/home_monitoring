@@ -147,7 +147,7 @@ services:
       CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL: "http://localhost:8088"
       PORT: 9021
       
-  # Ingestion in Kafka
+  # Send SWC measurements to Kafka
   pacmon:
     image: renajohn/pacmon:latest
     container_name: pacmon
@@ -159,6 +159,17 @@ services:
       SINK_URL: "broker:29092"
       TOPIC: "SWCTemperature"
       POLLING_INTERVAL: "60"
+
+  # Send SolarEdge measurement to Influx DB
+  solaredge:
+    image: volkszaehler/mbmd
+    container_name: solaredge
+    restart: on-failure
+    depends_on:
+      - influxdb
+    command: run -c /etc/mbmd.yaml
+    volumes:
+      - ./mbmd/mbmd.yaml:/etc/mbmd.yaml:ro
 
   # Consumer
   influxdb:
